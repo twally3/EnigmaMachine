@@ -1,0 +1,61 @@
+{
+  "name": "enigma",
+  "version": "1.0.0",
+  "description": "A web version of enigma",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Max Taylor",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.5.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.1.4"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "eqeqeq": [
+        2,
+        "allow-null"
+      ],
+      "brace-style": [
+        2,
+        "1tbs",
+        {
+          "allowSingleLine": true
+        }
+      ],
+      "linebreak-style": 0,
+      "no-console": 0,
+      "no-unused-vars": [
+        2,
+        {
+          "args": "after-used",
+          "argsIgnorePattern": "^_"
+        }
+      ]
+    },
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 8
+    },
+    "globals": {}
+  }
+}

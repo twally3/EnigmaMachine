@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Enigma</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #333333;
+    }
+
+    canvas {
+      height: 100vh;
+      width: 100vw;
+      margin: auto;
+      display: block;
+      object-fit: contain;
+      outline: 1px solid black;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Hello World</h1>
+  <canvas id="enigma" width="1280" height="720"></canvas>
+  <script src="./js/app.js" type="module"></script>
 </body>
+
 </html>

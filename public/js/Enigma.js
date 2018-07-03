@@ -1,11 +1,14 @@
 import Light from './Light.js';
+import Rotor from './Rotor.js';
 
 export default class Enigma {
-  constructor(ctx, letterOrder='qwertyuiopasdfghjklzxcvbnm') {
+  constructor(ctx, letterOrder = 'qwertyuiopasdfghjklzxcvbnm') {
     this.ctx = ctx;
     this.letterOrder = letterOrder;
     this.letters = this.addLetters();
     this.keyDown = null;
+    this.rotors = [new Rotor('DMTWSILRUYQNKFEJCAZBPGXOHV'), new Rotor('HQZGPJTMOBLNCIFDYAWVEUSRKX'), new Rotor('UQNTLSZFMREHDPXKIBVYGJCWOA')];
+    this.endThing = new Rotor('VKWRGIETFZBUSPQNODMHLACYXJ');
 
     document.addEventListener('keydown', ({ key }) => {
       if (this.keyDown) return;
@@ -18,12 +21,17 @@ export default class Enigma {
       if (!this.keyDown || this.keyDown.char !== this.processLetter(key)) return;
       this.keyDown.isOn = false;
       this.keyDown = null;
-      // TODO: Incriment the rotors
+      
+      this.rotors.reduce((current, rotor, i) => i === 0 || current === true ? rotor.incriment() : false, false);
     });
   }
 
   processLetter(letter) {
-    return letter;
+    const firstPass = this.rotors.reduce((current, rotor) => rotor.pass(current), letter);
+    const returnPass = this.endThing.pass(firstPass);
+    const endPass = this.rotors.slice(0).reverse().reduce((current, rotor) => rotor.pass(current, true), returnPass);
+    
+    return endPass;
   }
 
   addLetters() {

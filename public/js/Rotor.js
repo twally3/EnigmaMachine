@@ -36,14 +36,31 @@ export default class Rotor {
     return false;
   }
 
+  decrement() {
+    if (this.currentIndex === 0) {
+      this.currentIndex = this.letterIndexes.length - 1;
+      return true;
+    }
+    this.currentIndex--;
+    return false;
+  }
+
   draw(ctx, x, y, size) {
     ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(x, y, size, size);
+
+    ctx.fillStyle = '#AAAAAA';
+    ctx.fillRect(x, y + size + 10, size, size);
+    ctx.fillRect(x, y - size - 10, size, size);
 
     ctx.textAlign='center';
     ctx.textBaseline='middle'; 
     ctx.font='20px arial';
     ctx.fillStyle = '#000000';
     ctx.fillText(this.currentIndex, x + size/2, y + size/2);
+    
+    ctx.fillText(this.currentIndex <=0 ? this.currentIndex + 26 - 1 : this.currentIndex - 1, x + size/2, y + size/2 + size + 10);
+    ctx.fillText((this.currentIndex + 1) % this.letterIndexes.length, x + size/2, y + size/2 - size - 10);
+
   }
 }

@@ -62,9 +62,7 @@ export default class Enigma {
   }
 
   draw() {
-    this.letters.forEach(letter => {
-      letter.draw(this.ctx);
-    });
+    this.letters.forEach(letter => letter.draw(this.ctx));
     
     const rotorSpacing = 50;
     const rotorSize = 30;

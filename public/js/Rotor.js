@@ -35,4 +35,15 @@ export default class Rotor {
     this.currentIndex++;
     return false;
   }
+
+  draw(ctx, x, y, size) {
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(x, y, size, size);
+
+    ctx.textAlign='center';
+    ctx.textBaseline='middle'; 
+    ctx.font='20px arial';
+    ctx.fillStyle = '#000000';
+    ctx.fillText(this.currentIndex, x + size/2, y + size/2);
+  }
 }

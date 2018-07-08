@@ -7,11 +7,12 @@ export default class Enigma {
     this.letterOrder = letterOrder;
     this.letters = this.addLetters();
     this.keyDown = null;
-    this.rotors = [new Rotor('DMTWSILRUYQNKFEJCAZBPGXOHV'), new Rotor('HQZGPJTMOBLNCIFDYAWVEUSRKX'), new Rotor('UQNTLSZFMREHDPXKIBVYGJCWOA')];
+    this.rotors = ['DMTWSILRUYQNKFEJCAZBPGXOHV', 'HQZGPJTMOBLNCIFDYAWVEUSRKX', 'UQNTLSZFMREHDPXKIBVYGJCWOA'].map(string => new Rotor(string));
+    // this.rotors = [new Rotor('DMTWSILRUYQNKFEJCAZBPGXOHV'), new Rotor('HQZGPJTMOBLNCIFDYAWVEUSRKX'), new Rotor('UQNTLSZFMREHDPXKIBVYGJCWOA')];
     this.endThing = new Rotor('VKWRGIETFZBUSPQNODMHLACYXJ');
 
     document.addEventListener('keydown', ({ key }) => {
-      if (this.keyDown) return;
+      if (this.keyDown || !this.isValidKey(key, this.letterOrder)) return;
       const encodedKey = this.processLetter(key);
       this.keyDown = this.letters.find(light => light.char === encodedKey);
       if (this.keyDown) this.keyDown.isOn = true;
@@ -24,6 +25,10 @@ export default class Enigma {
       
       this.rotors.reduce((current, rotor, i) => i === 0 || current === true ? rotor.incriment() : false, false);
     });
+  }
+
+  isValidKey(key, lettersString) {
+    return lettersString.split('').indexOf(key) !== -1;
   }
 
   processLetter(letter) {
@@ -59,6 +64,16 @@ export default class Enigma {
   draw() {
     this.letters.forEach(letter => {
       letter.draw(this.ctx);
+    });
+    
+    const rotorSpacing = 50;
+    const rotorSize = 30;
+    const totalRotorWidth = (this.rotors.length * rotorSize) + (this.rotors.length - 1) * rotorSpacing;
+
+    this.rotors.forEach((rotor, i) => {
+      const x = (this.ctx.canvas.width / 2) + (totalRotorWidth / 2 - rotorSize) - (rotorSize + rotorSpacing) * i;
+      const y = 100;
+      rotor.draw(this.ctx, x, y, rotorSize);
     });
   }
 }
